@@ -1,12 +1,18 @@
-const express = require("express");
+import express from "express";
+import http from "http";
+import { Server } from "socket.io";
+import cors from "cors";
+import { indexRouter } from "./routes/index.routes.js";
+
 const app = express();
-const http = require("http");
 const server = http.createServer(app);
-const { Server } = require("socket.io");
 const io = new Server(server);
-const cors = require("cors");
 app.use(cors());
 
+//Routes
+app.use(indexRouter);
+
+//Arreglo para cargar usuario y mensaje
 const messagesList = [];
 
 const cargarArray = (user, msg) => {
@@ -18,12 +24,7 @@ const cargarArray = (user, msg) => {
   messagesList.push(mensajeObjeto);
 };
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
-
 io.on("connection", (socket) => {
-  
   //Recibo el nombre de usuario de quién se conectó
   socket.on("user connected", (username) => {
     // Almaceno el nombre de usuario asociado con el socket
