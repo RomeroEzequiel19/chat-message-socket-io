@@ -11,16 +11,18 @@
       }
 
       #form {
-        background: rgba(0, 0, 0, 0.15);
+        background: rgb(0, 5, 32);
         padding: 0.25rem;
         position: fixed;
         bottom: 0;
-        left: 0;
+        left: 8%;
         right: 0;
         display: flex;
         height: 3rem;
         box-sizing: border-box;
         backdrop-filter: blur(10px);
+        width: 85%;
+        border-radius: 10px;
       }
       #input {
         border: none;
@@ -47,11 +49,31 @@
         margin: 0;
         padding: 0;
       }
-      #messages > li {
-        padding: 0.5rem 1rem;
+
+      .own-message {
+        text-align: right;
+        background-color: #c6e9c6; /* Cambia el fondo a tu preferencia */
+        padding: 15px;
+        margin: 20px;
+        border-radius: 20px;
       }
-      #messages > li:nth-child(odd) {
-        background: #efefef;
+
+      p {
+        color: blue;
+        font-weight: bold;
+      }
+
+      .other-message {
+        text-align: left;
+        background-color: #e3e3e3; /* Cambia el fondo a tu preferencia */
+        padding: 15px;
+        margin: 20px;
+        border-radius: 20px;
+      }
+      .main-table {
+        overflow: auto;
+
+        height: 90vh;
       }
     </style>
   </head>
@@ -64,15 +86,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const mostrarMensajes = (msg) => {
-        var item = document.createElement("li");
+        const item = document.createElement("li");
         item.textContent = msg;
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
       };
-      var socket = io();
+      const socket = io();
 
-      var form = document.getElementById("form");
-      var input = document.getElementById("input");
+      const form = document.getElementById("form");
+      const input = document.getElementById("input");
 
       //Logica del formulario
       form.addEventListener("submit", function (e) {
