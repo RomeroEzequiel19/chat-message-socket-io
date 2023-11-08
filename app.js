@@ -23,6 +23,12 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
+  
+  //Recibo el nombre de usuario de quién se conectó
+  socket.on("user connected", (username) => {
+    // Almaceno el nombre de usuario asociado con el socket
+    socket.username = username;
+  });
 
   // muestra historial de mensaje al usuario que se conectó
   socket.emit("historial", messagesList);
