@@ -2,12 +2,17 @@ import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import path from "path";
 import { indexRouter } from "./routes/index.routes.js";
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+const __dirname = path.resolve();
+
 app.use(cors());
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src/views"));
 
 //Routes
 app.use(indexRouter);
@@ -51,5 +56,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3000, () => {
-  console.log("listening on *:3000");
+  console.log("Server running http://localhost:3000");
 });
