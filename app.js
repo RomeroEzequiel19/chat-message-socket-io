@@ -30,6 +30,10 @@ io.on("connection", (socket) => {
     socket.username = username;
   });
 
+  socket.on("key pressed", () => {
+    io.emit("key pressed", socket.username);
+  });
+
   // muestra historial de mensaje al usuario que se conectó
   socket.emit("historial", messagesList);
 
